@@ -16,7 +16,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 /* HTML5 display-role reset for older browsers */
 html{overflow-x: hidden;}
 article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section { display: block; }
-body { line-height: 100%; padding: 25px; font-family: var(--priFont); font-size: var(--defaultFont);}
+body { line-height: 100%; font-family: var(--priFont); font-size: var(--defaultFont);}
 ul { list-style: none; }
 blockquote, q { quotes: none; }
 blockquote:before, blockquote:after, q:before, q:after { content: ''; content: none; }
@@ -35,14 +35,14 @@ ul, h1, h2, h3, h4 { margin: 0; padding: 0; list-style: none; }
 strong, b { font-weight: bold; }
 em, i { font-style: italic; }
 
-
+.wrapper{max-width: 1800px; margin: 0 auto;}
 
 #header { display: flex; justify-content: space-between; min-height: 50px; align-items: center;}
     .main_logo_con {font-family: var(--secFont);}
 #nav
     .nav_con {display: flex; gap: 50px;}
 
-.portfolio_btn_con a {background: var(--secColor); color: var(--thiColor); padding: 10px 25px; border-radius: 5px;}
+.portfolio_btn_con a {background: var(--priColor); color: var(--thiColor); padding: 10px 25px; border-radius: 5px;}
 
 #hero {min-height: 100vh;}
     .hero_info {display: flex; align-items: end; gap: 0 200px; margin-top: 50px;}
@@ -55,5 +55,13 @@ em, i { font-style: italic; }
     .hero_video video {width: 100%; border-radius: 20px;}
 
     .hero_video_info {display: flex; flex-direction: column;justify-content: center;  margin: 345px 200px 0 auto; max-width: 1080px}
+    .hero_video_info p{font-family: var(--secFont);}
     .hero_video_info h2 {font-size: var(--headingFont);}
-#main {min-height: 100vh;}
+
+    .hero_video_btn {margin: 100px auto 150px; text-align: center;}
+    .hero_video_btn a {background: var(--priColor); color: var(--thiColor); padding: 10px 25px; border-radius: 5px;}
+    .hero_video_btn a:hover {background: var(--thiColor); color: var(--priColor);}
+
+#main {min-height: 100vh; background: var(--thiColor);}
+    .circles_con {display: flex;justify-content: center;}
+    .circles_con div {background: var(--thiColor); height: 150px; width: 175px; border-radius: 50%; margin-top: -75px;}
