@@ -135,3 +135,37 @@ gsap.from('#bottom .circles_con div', {
     end: 'bottom center',
   }
 })
+
+let bottomInfoH2 = new SplitText('.bottom1_heading h2', {type: 'chars'});
+
+bottomInfoH2.chars.forEach((obj, i) => {
+  let txt = obj.innerText;
+  let clone = `<div class="cloneText"> ${txt} </div>`;
+  let newHTML = `<div class="originalText"> ${txt} </div>${clone}`;
+  obj.innerHTML = newHTML;
+  gsap.set(obj.childNodes[1], {
+    yPercent: i % 2 === 0 ? -100 : 100
+  });
+
+  gsap.to(obj.childNodes, {
+    yPercent: i % 2 === 0 ? "+=100" : "-=100",
+    scrollTrigger: {
+      trigger: '.bottom1_heading',
+      scrub: 5,
+      start: 'top center',
+      end: 'bottom center',
+    }
+  });
+});
+
+gsap.from('.bottom1_images img', {
+  stagger: 0.5,
+  scale: 0,
+  scrollTrigger: {
+    trigger: '.bottom1_con',
+    scrub: 5,
+    start: 'top center',
+    end: 'bottom center',
+    markers: true
+  }
+})
