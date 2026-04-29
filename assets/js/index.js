@@ -10,22 +10,24 @@ gsap.ticker.add((time)=>{ lenis.raf(time * 300) })
 gsap.ticker.lagSmoothing(0)
 
 /* HERO */
-let heroInfoH1 = new SplitText('.hero_info h1', {type: 'words'})
-let heroInfoP = new SplitText('.hero_info p', {type: 'lines'})
+let heroInfoH1 = new SplitText('.hero_info h1', {type: 'lines, words', linesClass: "line"})
+let heroInfoP = new SplitText('.hero_info p', {type: 'lines, chars', linesClass: "line"})
 
-let heroInfoTl = gsap.timeline({
-    stagger: {
-      each: 0.1,
-    }
-})
+let heroInfoTl = gsap.timeline({ })
 
 heroInfoTl.from(heroInfoH1.words, {
-  y: 50,
-  opacity: 0,
+  y: 100,
+  stagger: {
+    each: 0.1,
+    from: 'random'
+  }
 })
-heroInfoTl.from(heroInfoP.lines, {
-  y: 50,
-  opacity: 0,
+
+heroInfoTl.from(heroInfoP.chars, {
+  y: 100,
+  stagger: {
+    each: 0.01,
+  }
 })
 
 
@@ -68,15 +70,66 @@ heroVideoInfo.from(heroVideoInfoH2.lines, {
   }
 })
 
-gsap.from('.circles_con div', {
+/* MAIN */
+gsap.from('#main .circles_con div', {
   scale: 0,
-  ease: 'elastic.out',
+  ease: 'back.inOut',
   stagger: {
     each: 0.3,
-    from: 'edges'
+    from: 'end'
   },
   scrollTrigger: {
-    trigger: '.circles_con',
+    trigger: '#main .circles_con',
+    scrub: 1,
+    start: 'top bottom',
+    end: 'bottom center',
+  }
+})
+
+
+let mainInfoH2 = new SplitText('.main_info h2', {type: 'lines, words', linesClass: 'line'})
+gsap.from(mainInfoH2.words, {
+  y: 100,
+  stagger: {
+    each: 0.5,
+    from: 'random'
+  },
+  scrollTrigger: {
+    trigger: '.main_info h2',
+    scrub: 1,
+    start: 'top center',
+    end: 'bottom center',
+  }
+})
+
+
+gsap.to('.main_cards div', {
+  y: -500,
+  rotate: 'random(-360, 360)',
+  ease: 'elastic.inOut',
+  stagger: {
+    each: 0.1,
+    from: 'end'
+  },
+    scrollTrigger: {
+      trigger: '.main_cards',
+      scrub: 1,
+      pin: true,
+      start: 'top 25%',
+      end: '+=1000',
+    }
+})
+
+/* BOTTOM */
+gsap.from('#bottom .circles_con div', {
+  scale: 0,
+  ease: 'back.inOut',
+  stagger: {
+    each: 0.3,
+    from: 'start'
+  },
+  scrollTrigger: {
+    trigger: '#bottom .circles_con',
     scrub: 1,
     start: 'top bottom',
     end: 'bottom center',
