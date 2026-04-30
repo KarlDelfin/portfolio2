@@ -158,14 +158,22 @@ bottomInfoH2.chars.forEach((obj, i) => {
   });
 });
 
-gsap.from('.bottom1_images img', {
-  stagger: 0.5,
-  scale: 0,
-  scrollTrigger: {
-    trigger: '.bottom1_con',
-    scrub: 5,
-    start: 'top center',
-    end: 'bottom center',
-    markers: true
+gsap.fromTo(
+  '.bottom1_images img',
+  {
+    scale: 0,
+    rotation: () => gsap.utils.random(-180, 180),
+  },
+  {
+    scale: 1,
+    rotation: () => gsap.utils.random(-20, 20), // stays messy
+    stagger: 0.2,
+    ease: 'power2.out',
+    scrollTrigger: {
+      trigger: '.bottom1_con',
+      scrub: true,
+      start: 'top center',
+      end: 'bottom bottom',
+    }
   }
-})
+);

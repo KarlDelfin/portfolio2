@@ -85,11 +85,11 @@ em, i { font-style: italic; }
 
     .bottom1_con {display: flex; min-height: 100vh;}
 
-    .bottom1_info {width: 100%;}
+    .bottom1_info {width: 100%; padding: 25px;}
     .bottom1_info p {font-size: var(--headingFont); font-family: var(--secFont);}
 
     .bottom1_images {position: relative; width: 100%;}
-    .bottom1_images img {position:absolute; right: 0}
+    .bottom1_images img {position:absolute; right: 0; border-radius: 20px;}
 
 
     
