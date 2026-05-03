@@ -1,8 +1,6 @@
-
 gsap.registerPlugin(ScrollTrigger);
 gsap.registerPlugin(ScrambleTextPlugin);
 gsap.registerPlugin(SplitText);
-
 
 /* LENIS SCROLL */
 let lenis = new Lenis()
@@ -120,8 +118,8 @@ gsap.to('.main_cards div', {
     }
 })
 
-/* BOTTOM */
-gsap.from('#bottom .circles_con div', {
+/* BOTTOM 1*/
+gsap.from('#bottom1 .circles_con div', {
   scale: 0,
   ease: 'back.inOut',
   stagger: {
@@ -129,51 +127,148 @@ gsap.from('#bottom .circles_con div', {
     from: 'start'
   },
   scrollTrigger: {
-    trigger: '#bottom .circles_con',
+    trigger: '#bottom1 .circles_con',
     scrub: 1,
     start: 'top bottom',
     end: 'bottom center',
   }
 })
 
-let bottomInfoH2 = new SplitText('.bottom1_heading h2', {type: 'chars'});
+let bottomInfoH2 = new SplitText('.bottom1_heading h2', {type: 'lines, chars', linesClass: 'line'});
 
-bottomInfoH2.chars.forEach((obj, i) => {
-  let txt = obj.innerText;
-  let clone = `<div class="cloneText"> ${txt} </div>`;
-  let newHTML = `<div class="originalText"> ${txt} </div>${clone}`;
-  obj.innerHTML = newHTML;
-  gsap.set(obj.childNodes[1], {
-    yPercent: i % 2 === 0 ? -100 : 100
-  });
+gsap.from(bottomInfoH2.chars, {
+  x: -100,
+  opacity: 0,
+  stagger: {
+    each: 0.2,
+  },
+  scrollTrigger: {
+    trigger: '.bottom1_heading',
+    scrub: 5,
+    start: 'top center',
+    end: 'bottom center',
+  }
+})
 
-  gsap.to(obj.childNodes, {
-    yPercent: i % 2 === 0 ? "+=100" : "-=100",
+document.querySelectorAll('.bottom1_con').forEach((section) => {
+  const images = section.querySelectorAll('.bottom1_images img');
+  
+  gsap.fromTo(images,
+    {
+      scale: 0,
+      rotation: () => gsap.utils.random(-180, 180),
+    },
+    {
+      scale: 1,
+      rotation: () => gsap.utils.random(-20, 20),
+      stagger: 0.2,
+      ease: 'power2.out',
+      scrollTrigger: {
+        trigger: section,
+        scrub: true,
+        start: 'top center',
+        end: 'bottom bottom',
+      }
+    }
+  );
+
+  const bottom1P = section.querySelectorAll('.bottom1_info p');
+  gsap.from(bottom1P, {
+    y: 100,
+    x: 1000,
+    opacity: 0,
+    stagger: 0.1,
     scrollTrigger: {
-      trigger: '.bottom1_heading',
-      scrub: 5,
-      start: 'top center',
-      end: 'bottom center',
+      trigger: section,
+      scrub: true,
+      start: 'top 20%',
+      end: 'bottom bottom',
     }
   });
 });
 
-gsap.fromTo(
-  '.bottom1_images img',
+/* BOTTOM 2 */
+gsap.from('#bottom2 .circles_con div', {
+  scale: 0,
+  ease: 'back.inOut',
+  stagger: {
+    each: 0.3,
+    from: 'end'
+  },
+  scrollTrigger: {
+    trigger: '#bottom2 .circles_con',
+    scrub: 1,
+    start: 'top bottom',
+    end: 'bottom center',
+  }
+})
+
+let bottom2P = new SplitText('.bottom2_con p', {type: 'chars',});
+gsap.fromTo(bottom2P.chars,
   {
-    scale: 0,
-    rotation: () => gsap.utils.random(-180, 180),
+    y: 500,
+    x: 2000,
+    rotation: -10,
   },
   {
-    scale: 1,
-    rotation: () => gsap.utils.random(-20, 20), // stays messy
-    stagger: 0.2,
-    ease: 'power2.out',
+    x: 0,
+    y: 0,
+    rotation: (i) => Math.sin(i * 0.5) * 10,
+    stagger: {
+      each: 0.04,
+    },
+    ease: "back.out",
+    duration: 1,
     scrollTrigger: {
-      trigger: '.bottom1_con',
-      scrub: true,
-      start: 'top center',
-      end: 'bottom bottom',
+      trigger: '.bottom2_con',
+      scrub: 3,
+      start: 'top 10%',
+      end: 'bottom 60%',
+      pin: true,
+      pinSpacing: false,
     }
   }
 );
+
+/* FOOTER */
+gsap.from('#footer .circles_con div', {
+  scale: 0,
+  ease: 'back.inOut',
+  stagger: {
+    each: 0.3,
+    from: 'start'
+  },
+  scrollTrigger: {
+    trigger: '#footer .circles_con',
+    scrub: 1,
+    start: 'top bottom',
+    end: 'bottom 80%',
+  }
+})
+
+/* MATCH MEDIA */
+let mm = gsap.matchMedia();
+
+mm.add("(max-width: 1800px)", () => {
+  gsap.set('.hero_video', { clearProps: 'all' });
+  ScrollTrigger.getAll().forEach(st => st.trigger?.matches('.hero_video') && st.kill());
+
+
+});
+
+mm.add("(max-width: 1400px)", () => {
+  
+});
+
+mm.add("(max-width: 1010px)", () => {
+  
+});
+
+mm.add("(max-width: 800px)", () => {
+  gsap.set('.main_cards div, .main_cards, .bottom1_images img, .bottom1_info p, .bottom1_con', {clearProps: 'all'})
+  ScrollTrigger.getAll().forEach(st => st.trigger?.matches('.main_cards div, .main_cards, .bottom1_images img, .bottom1_info p, .bottom1_con') && st.kill());
+});
+
+mm.add("(max-width: 600px)", () => {
+
+});
