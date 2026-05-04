@@ -40,8 +40,8 @@ gsap.to('.hero_video', {
   }
 })
 
-let heroVideoInfoP = new SplitText('.hero_video_info p', {type: 'chars'})
-let heroVideoInfoH2 = new SplitText('.hero_video_info h2', {type: 'lines'})
+let heroVideoInfoP = new SplitText('.hero_video_info p', {type: 'lines, chars', linesClass: 'line'})
+let heroVideoInfoH2 = new SplitText('.hero_video_info h2', {type: 'words'})
 
 let heroVideoInfo = gsap.timeline({
    scrollTrigger: {
@@ -54,17 +54,17 @@ let heroVideoInfo = gsap.timeline({
 
 heroVideoInfo.from(heroVideoInfoP.chars, {
   y: 50,
+  x: 50,
   opacity: 0,
-  stagger: 0.1,
+  stagger: 0.2,
 })
 
-heroVideoInfo.from(heroVideoInfoH2.lines, {
+heroVideoInfo.from(heroVideoInfoH2.words, {
   x: 100,
   y: 100,
   opacity: 0,
   stagger: {
-    each: 0.1,
-    from: 'random'
+    each: 0.2,
   }
 })
 
@@ -89,14 +89,14 @@ let mainInfoH2 = new SplitText('.main_info h2', {type: 'lines, words', linesClas
 gsap.from(mainInfoH2.words, {
   y: 100,
   stagger: {
-    each: 0.5,
+    each: 0.1,
     from: 'random'
   },
   scrollTrigger: {
     trigger: '.main_info h2',
-    scrub: 1,
     start: 'top center',
     end: 'bottom center',
+    toggleActions: 'play none none none'
   }
 })
 
@@ -140,13 +140,13 @@ gsap.from(bottomInfoH2.chars, {
   x: -100,
   opacity: 0,
   stagger: {
-    each: 0.2,
+    each: 0.1,
   },
   scrollTrigger: {
     trigger: '.bottom1_heading',
-    scrub: 5,
     start: 'top center',
     end: 'bottom center',
+    toggleActions: 'play none none none'
   }
 })
 
@@ -251,7 +251,7 @@ let mm = gsap.matchMedia();
 
 mm.add("(max-width: 1800px)", () => {
   gsap.set('.hero_video', { clearProps: 'all' });
-  ScrollTrigger.getAll().forEach(st => st.trigger?.matches('.hero_video') && st.kill());
+  ScrollTrigger.getAll().forEach(st => st.trigger.matches('.hero_video') && st.kill());
 
 
 });
@@ -266,7 +266,7 @@ mm.add("(max-width: 1010px)", () => {
 
 mm.add("(max-width: 800px)", () => {
   gsap.set('.main_cards div, .main_cards, .bottom1_images img, .bottom1_info p, .bottom1_con', {clearProps: 'all'})
-  ScrollTrigger.getAll().forEach(st => st.trigger?.matches('.main_cards div, .main_cards, .bottom1_images img, .bottom1_info p, .bottom1_con') && st.kill());
+  ScrollTrigger.getAll().forEach(st => st.trigger.matches('.main_cards div, .main_cards, .bottom1_images img, .bottom1_info p, .bottom1_con') && st.kill());
 });
 
 mm.add("(max-width: 600px)", () => {
