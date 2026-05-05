@@ -251,7 +251,7 @@ let mm = gsap.matchMedia();
 
 mm.add("(max-width: 1800px)", () => {
   gsap.set('.hero_video', { clearProps: 'all' });
-  ScrollTrigger.getAll().forEach(st => st.trigger.matches('.hero_video') && st.kill());
+  ScrollTrigger.getAll().forEach(st => { if (st.trigger && st.trigger.matches('.hero_video')) st.kill(); });
 
 
 });
@@ -265,8 +265,10 @@ mm.add("(max-width: 1010px)", () => {
 });
 
 mm.add("(max-width: 800px)", () => {
-  gsap.set('.main_cards div, .main_cards, .bottom1_images img, .bottom1_info p, .bottom1_con', {clearProps: 'all'})
-  ScrollTrigger.getAll().forEach(st => st.trigger.matches('.main_cards div, .main_cards, .bottom1_images img, .bottom1_info p, .bottom1_con') && st.kill());
+  gsap.set('.main_cards div, .main_cards, .bottom1_images img, .bottom1_info p, .bottom1_con', { clearProps: 'all' });
+  ScrollTrigger.getAll().forEach(st => {
+    if (st.trigger && st.trigger.matches('.main_cards, .main_cards div, .bottom1_images img, .bottom1_info p, .bottom1_con')) st.kill();
+  });
 });
 
 mm.add("(max-width: 600px)", () => {
